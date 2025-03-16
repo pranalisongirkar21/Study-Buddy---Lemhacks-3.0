@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Buddy - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Add Google Sign-In API -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body class="login-page">
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Study Buddy</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="login-container">
+        <div class="forms-container">
+            <!-- Left Side - Form -->
+            <div class="form-section">
+                <h2 class="form-title">Welcome Back!</h2>
+                <form class="login-form" id="loginForm">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" placeholder="Email" required>
+                        </div>
+                        <div class="input-field">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Password" required>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" name="rememberMe">
+                            <span class="checkbox-custom"></span>
+                            <span class="label-text">Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Sign in</button>
+
+                    <div class="social-login">
+                        <p>Or Sign in with</p>
+                        <div class="social-icons">
+                            <!-- Google Sign-In Button -->
+                            <div id="g_id_onload"
+                                 data-client_id="285583610101-ra8hsqm0dges5i5345l01sp3tvm4129s.apps.googleusercontent.com"
+                                 data-context="signin"
+                                 data-callback="handleGoogleSignIn">
+                            </div>
+                            <div class="g_id_signin google-btn"
+                                 data-type="standard"
+                                 data-size="large"
+                                 data-theme="outline"
+                                 data-text="signin_with"
+                                 data-shape="rectangular"
+                                 data-logo_alignment="center">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Right Side - Info -->
+            <div class="info-section">
+                <div class="info-content">
+                    <h2>New Here?</h2>
+                    <p>Sign up and start your learning journey with Study Buddy today!</p>
+                    <div class="illustration">
+                        <img src="https://raw.githubusercontent.com/sefyudem/Sliding-Sign-In-Sign-Up-Form/955c6482aeeb2f0e77c1f3c66354da3bc4d7a72d/img/log.svg" alt="Learning illustration">
+                    </div>
+                    <button class="switch-btn" id="switchToSignUp">Sign up</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div class="toast-container"></div>
+
+    <script src="login.js"></script>
+    <script src="user-profile.js"></script>
+</body>
+</html> 

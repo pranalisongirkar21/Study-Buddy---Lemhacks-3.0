@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Study Rooms - Study Buddy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="virtual-study.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Study Buddy</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="peer-matching.html">Find Tutor</a></li>
+            <li><a href="study-materials.html">Resources</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="virtual-study.html" class="active">Study Rooms</a></li>
+            <li><a href="chat.html" class="chat-nav-btn">
+                <i class="fas fa-robot"></i>
+                <span>AI Chatbot</span>
+            </a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="virtual-study-container">
+        <section class="rooms-section">
+            <div class="rooms-header">
+                <h1>Virtual Study Rooms</h1>
+                <button class="create-room-btn" onclick="openCreateRoomModal()">
+                    <i class="fas fa-plus"></i> Create Room
+                </button>
+            </div>
+
+            <div class="rooms-grid" id="roomsGrid">
+                <!-- Rooms will be dynamically populated -->
+            </div>
+        </section>
+
+        <section class="active-room-section" id="activeRoom" style="display: none;">
+            <div class="room-header">
+                <h2 id="roomTitle">Room Name</h2>
+                <div class="room-controls">
+                    <button class="control-btn" onclick="copyRoomLink()" title="Share Room Link">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <button class="control-btn" onclick="toggleAudio()">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button class="control-btn" onclick="toggleVideo()">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    <button class="control-btn" onclick="toggleScreen()">
+                        <i class="fas fa-desktop"></i>
+                    </button>
+                    <button class="control-btn" onclick="leaveRoom()">
+                        <i class="fas fa-door-open"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="room-content">
+                <div class="video-grid" id="videoGrid">
+                    <!-- Video elements will be added here -->
+                </div>
+
+                <div class="side-panel">
+                    <div class="pomodoro-timer">
+                        <h3>Pomodoro Timer</h3>
+                        <div class="timer-display">
+                            <span id="timerMinutes">25</span>:<span id="timerSeconds">00</span>
+                        </div>
+                        <div class="timer-controls">
+                            <button onclick="startTimer()" id="startTimer">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <button onclick="pauseTimer()" id="pauseTimer" disabled>
+                                <i class="fas fa-pause"></i>
+                            </button>
+                            <button onclick="resetTimer()" id="resetTimer">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                        </div>
+                        <div class="timer-settings">
+                            <label>
+                                <input type="radio" name="timerMode" value="25" checked> Work (25m)
+                            </label>
+                            <label>
+                                <input type="radio" name="timerMode" value="5"> Short Break (5m)
+                            </label>
+                            <label>
+                                <input type="radio" name="timerMode" value="15"> Long Break (15m)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="whiteboard-container">
+                        <h3>Shared Whiteboard</h3>
+                        <canvas id="whiteboard"></canvas>
+                        <div class="whiteboard-controls">
+                            <input type="color" id="colorPicker" value="#000000">
+                            <input type="range" id="brushSize" min="1" max="20" value="2">
+                            <button onclick="clearWhiteboard()">
+                                <i class="fas fa-eraser"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="ambient-sounds">
+                        <h3>Ambient Sounds</h3>
+                        <div class="sound-buttons">
+                            <button onclick="toggleSound('cafe')" class="sound-btn">
+                                <i class="fas fa-coffee"></i> Café
+                            </button>
+                            <button onclick="toggleSound('rain')" class="sound-btn">
+                                <i class="fas fa-cloud-rain"></i> Rain
+                            </button>
+                            <button onclick="toggleSound('nature')" class="sound-btn">
+                                <i class="fas fa-tree"></i> Nature
+                            </button>
+                            <button onclick="toggleSound('whitenoise')" class="sound-btn">
+                                <i class="fas fa-wave-square"></i> White Noise
+                            </button>
+                        </div>
+                        <input type="range" id="volumeControl" min="0" max="100" value="50">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Create Room Modal -->
+    <div id="createRoomModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCreateRoomModal()">&times;</span>
+            <h2>Create Study Room</h2>
+            <form id="createRoomForm">
+                <div class="form-group">
+                    <label for="roomName">Room Name</label>
+                    <input type="text" id="roomName" required>
+                </div>
+                <div class="form-group">
+                    <label for="roomSubject">Subject</label>
+                    <select id="roomSubject" required>
+                        <option value="">Select Subject</option>
+                        <option value="mathematics">Mathematics</option>
+                        <option value="physics">Physics</option>
+                        <option value="chemistry">Chemistry</option>
+                        <option value="biology">Biology</option>
+                        <option value="computer-science">Computer Science</option>
+                        <option value="literature">Literature</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="roomCapacity">Maximum Participants</label>
+                    <input type="number" id="roomCapacity" min="2" max="8" value="4" required>
+                </div>
+                <div class="form-group">
+                    <label>Room Privacy</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="privacy" value="public" checked> Public
+                        </label>
+                        <label>
+                            <input type="radio" name="privacy" value="private"> Private
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="create-btn">Create Room</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="virtual-study.js"></script>
+    <script src="user-profile.js"></script>
+</body>
+</html> 

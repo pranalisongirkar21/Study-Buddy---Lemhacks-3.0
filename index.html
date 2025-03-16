@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Study Buddy - Connect with peers, find tutors, and get AI assistance for your studies">
+    <title>Study Buddy - Your Intelligent Learning Companion</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Study Buddy</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="peer-matching.html">Find Tutor</a></li>
+            <li><a href="study-materials.html">Resources</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="virtual-study.html">Study Rooms</a></li>
+            <li><a href="become-tutor.html">Become a Tutor</a></li>
+            <li><a href="chat.html" class="chat-nav-btn" aria-label="Open AI Chatbot">
+                <i class="fas fa-robot" aria-hidden="true"></i>
+                <span>AI Chatbot</span>
+            </a></li>
+            <li><button class="login-btn" onclick="window.location.href='login.html'" aria-label="Login">Login</button></li>
+        </ul>
+        <button class="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="floating-shapes" aria-hidden="true">
+                <div class="shape"></div>
+                <div class="shape"></div>
+                <div class="shape"></div>
+                <div class="shape"></div>
+            </div>
+            <div class="hero-content">
+                <h1>Connect, Learn, and Grow Together</h1>
+                <p>Find the perfect study buddy or share your knowledge with peers</p>
+            </div>
+        </section>
+
+        <section class="features" id="features">
+            <h2>Why Choose Study Buddy?</h2>
+            <div class="feature-cards">
+                <article class="feature-card" onclick="window.location.href='peer-matching.html'">
+                    <i class="fas fa-users" aria-hidden="true"></i>
+                    <h3>Peer Matching</h3>
+                    <p>Find the perfect study partner based on subject and expertise</p>
+                </article>
+                <article class="feature-card" onclick="window.location.href='virtual-study.html'">
+                    <i class="fas fa-video" aria-hidden="true"></i>
+                    <h3>Virtual Study Rooms</h3>
+                    <p>Join interactive study sessions with video, whiteboard, and Pomodoro timer</p>
+                </article>
+                <article class="feature-card" onclick="window.location.href='study-materials.html'">
+                    <i class="fas fa-share-alt" aria-hidden="true"></i>
+                    <h3>Resource Sharing</h3>
+                    <p>Access and share study materials with peers</p>
+                </article>
+                <article class="feature-card ai-feature" onclick="window.location.href='chat.html'" role="button" tabindex="0">
+                    <i class="fas fa-robot" aria-hidden="true"></i>
+                    <h3>AI Study Assistant</h3>
+                    <p>Get instant help from our intelligent AI tutor</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="subjects" id="subjects">
+            <h2>Popular Subjects</h2>
+            <div class="subject-grid">
+                <button class="subject-card" onclick="window.location.href='chat.html'" aria-label="Chat about Mathematics">
+                    <i class="fas fa-square-root-alt" aria-hidden="true"></i>
+                    Mathematics
+                </button>
+                <button class="subject-card" onclick="window.location.href='chat.html'" aria-label="Chat about Physics">
+                    <i class="fas fa-atom" aria-hidden="true"></i>
+                    Physics
+                </button>
+                <button class="subject-card" onclick="window.location.href='chat.html'" aria-label="Chat about Chemistry">
+                    <i class="fas fa-flask" aria-hidden="true"></i>
+                    Chemistry
+                </button>
+                <button class="subject-card" onclick="window.location.href='chat.html'" aria-label="Chat about Biology">
+                    <i class="fas fa-dna" aria-hidden="true"></i>
+                    Biology
+                </button>
+                <button class="subject-card" onclick="window.location.href='chat.html'" aria-label="Chat about Computer Science">
+                    <i class="fas fa-laptop-code" aria-hidden="true"></i>
+                    Computer Science
+                </button>
+                <button class="subject-card" onclick="window.location.href='chat.html'" aria-label="Chat about Literature">
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                    Literature
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Study Buddy</h3>
+                <p>Connecting students for better learning</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#terms">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Study Buddy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="user-profile.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

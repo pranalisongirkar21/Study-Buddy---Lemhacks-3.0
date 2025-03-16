@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Buddy - AI Chat Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="chat.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Study Buddy</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="peer-matching.html">Find Tutor</a></li>
+            <li><a href="study-materials.html">Resources</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="virtual-study.html">Study Rooms</a></li>
+            <li><a href="chat.html" class="active">AI Chat</a></li>
+            <li><button class="login-btn" onclick="window.location.href='login.html'">Login</button></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="chat-container">
+        <div class="chat-sidebar">
+            <div class="sidebar-section">
+                <h2>Study Topics</h2>
+                <ul class="topic-list">
+                    <li class="active"><i class="fas fa-square-root-alt"></i> Mathematics</li>
+                    <li><i class="fas fa-atom"></i> Physics</li>
+                    <li><i class="fas fa-flask"></i> Chemistry</li>
+                    <li><i class="fas fa-dna"></i> Biology</li>
+                    <li><i class="fas fa-laptop-code"></i> Computer Science</li>
+                    <li><i class="fas fa-book"></i> Literature</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h2>Learning Preferences</h2>
+                <div class="preference-group">
+                    <label for="learningStyle">Learning Style:</label>
+                    <select id="learningStyle" class="preference-select">
+                        <option value="visual">Visual</option>
+                        <option value="auditory">Auditory</option>
+                        <option value="kinesthetic">Kinesthetic</option>
+                        <option value="reading">Reading/Writing</option>
+                    </select>
+                </div>
+                <div class="preference-group">
+                    <label for="difficultyLevel">Difficulty Level:</label>
+                    <select id="difficultyLevel" class="preference-select">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate" selected>Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2>Quick Actions</h2>
+                <div class="quick-actions">
+                    <button class="action-btn" onclick="createStudyPlan()">
+                        <i class="fas fa-tasks"></i> Create Study Plan
+                    </button>
+                    <button class="action-btn" onclick="startPractice()">
+                        <i class="fas fa-pencil-alt"></i> Practice Problems
+                    </button>
+                    <button class="action-btn" onclick="reviewProgress()">
+                        <i class="fas fa-chart-line"></i> Review Progress
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-main">
+            <div class="chat-header">
+                <div class="header-content">
+                    <h2><i class="fas fa-robot"></i> AI Study Assistant</h2>
+                    <p>Your personalized learning companion</p>
+                </div>
+                <div class="header-actions">
+                    <button class="header-btn" onclick="clearChat()" title="Clear Chat">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <button class="header-btn" onclick="toggleTheme()" title="Toggle Theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="message ai-message">
+                    <div class="message-content">
+                        <i class="fas fa-robot"></i>
+                        <div class="text">
+                            Hello! I'm your AI study assistant. How can I help you with your studies today?
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <form id="chatForm">
+                    <div class="input-wrapper">
+                        <button type="button" class="emoji-btn" onclick="toggleEmojiPicker()">
+                            <i class="far fa-smile"></i>
+                        </button>
+                        <input type="text" id="userInput" placeholder="Type your question here..." autocomplete="off">
+                        <button type="button" class="voice-btn" onclick="startVoiceInput()">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                    </div>
+                    <button type="submit" class="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+                <div id="emojiPicker" class="emoji-picker" style="display: none;">
+                    <!-- Emojis will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-context">
+            <div class="context-section">
+                <h3>Current Topic</h3>
+                <div class="topic-info">
+                    <i class="fas fa-book"></i>
+                    <span id="currentTopicDisplay">Mathematics</span>
+                </div>
+            </div>
+
+            <div class="context-section">
+                <h3>Recent Topics</h3>
+                <ul class="recent-topics" id="recentTopics">
+                    <!-- Recent topics will be dynamically added here -->
+                </ul>
+            </div>
+
+            <div class="context-section">
+                <h3>Suggested Resources</h3>
+                <div class="resource-list" id="suggestedResources">
+                    <!-- Resources will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="user-profile.js"></script>
+    <script type="module" src="chat.js"></script>
+    <script>
+        // Quick action functions
+        function createStudyPlan() {
+            document.getElementById('userInput').value = 'Create a study plan';
+            document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+        }
+
+        function startPractice() {
+            document.getElementById('userInput').value = 'Give me practice problems';
+            document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+        }
+
+        function reviewProgress() {
+            document.getElementById('userInput').value = 'Review my progress';
+            document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+        }
+
+        function clearChat() {
+            if (confirm('Are you sure you want to clear the chat history?')) {
+                document.getElementById('chatMessages').innerHTML = '';
+                // Add welcome message
+                const event = new Event('DOMContentLoaded');
+                document.dispatchEvent(event);
+            }
+        }
+
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            const themeIcon = document.querySelector('.header-btn i.fas');
+            themeIcon.classList.toggle('fa-moon');
+            themeIcon.classList.toggle('fa-sun');
+            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+        }
+
+        // Voice input
+        function startVoiceInput() {
+            if ('webkitSpeechRecognition' in window) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+
+                recognition.onstart = () => {
+                    const voiceBtn = document.querySelector('.voice-btn i');
+                    voiceBtn.className = 'fas fa-stop';
+                };
+
+                recognition.onend = () => {
+                    const voiceBtn = document.querySelector('.voice-btn i');
+                    voiceBtn.className = 'fas fa-microphone';
+                };
+
+                recognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('userInput').value = transcript;
+                };
+
+                recognition.start();
+            } else {
+                alert('Voice input is not supported in your browser.');
+            }
+        }
+
+        // Initialize theme
+        document.addEventListener('DOMContentLoaded', () => {
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') {
+                toggleTheme();
+            }
+        });
+    </script>
+</body>
+</html> 

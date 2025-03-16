@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Study Buddy</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .profile-container {
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 3rem;
+            color: var(--primary-color);
+        }
+
+        .profile-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group input:disabled {
+            background: var(--light-gray);
+            cursor: not-allowed;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .save-btn, .cancel-btn {
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .save-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+        }
+
+        .save-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .cancel-btn {
+            background: var(--light-gray);
+            color: var(--text-color);
+            border: none;
+        }
+
+        .cancel-btn:hover {
+            background: var(--dark-gray);
+            color: var(--white);
+        }
+
+        .info-text {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Study Buddy</span>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <h1>Profile Settings</h1>
+        </div>
+
+        <form class="profile-form" id="profileForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <p class="info-text">Email cannot be changed</p>
+            </div>
+
+            <div class="form-group">
+                <label>Registration Date</label>
+                <input type="text" id="registrationDate" disabled>
+            </div>
+
+            <div class="form-group">
+                <label>Last Login</label>
+                <input type="text" id="lastLogin" disabled>
+            </div>
+
+            <div class="profile-actions">
+                <button type="submit" class="save-btn">Save Changes</button>
+                <button type="button" class="cancel-btn" onclick="goBack()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Check authentication
+        window.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (!isLoggedIn) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Load profile data
+            const profileData = JSON.parse(localStorage.getItem('profileData') || '{}');
+            document.getElementById('name').value = profileData.name || '';
+            document.getElementById('email').value = profileData.email || '';
+            document.getElementById('email').disabled = true;
+            
+            // Format dates
+            const formatDate = (dateStr) => {
+                if (!dateStr) return 'N/A';
+                return new Date(dateStr).toLocaleString();
+            };
+            
+            document.getElementById('registrationDate').value = formatDate(profileData.registrationDate);
+            document.getElementById('lastLogin').value = formatDate(profileData.lastLogin);
+        });
+
+        // Handle form submission
+        document.getElementById('profileForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const saveBtn = e.target.querySelector('.save-btn');
+            
+            // Show loading state
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            saveBtn.disabled = true;
+
+            // Update user data
+            const newName = document.getElementById('name').value;
+            localStorage.setItem('userName', newName);
+
+            // Simulate API call delay
+            setTimeout(() => {
+                // Return to previous page
+                goBack();
+            }, 500);
+        });
+
+        // Function to go back to previous page
+        function goBack() {
+            const returnUrl = localStorage.getItem('returnUrl') || 'home.html';
+            window.location.href = returnUrl;
+        }
+    </script>
+    <script src="user-profile.js"></script>
+</body>
+</html> 

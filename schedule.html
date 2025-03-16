@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Buddy - Schedule Sessions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="schedule.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Study Buddy</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="peer-matching.html">Find Tutor</a></li>
+            <li><a href="become-tutor.html">Become a Tutor</a></li>
+            <li><a href="study-materials.html">Resources</a></li>
+            <li><a href="schedule.html" class="active">Schedule</a></li>
+            <li><a href="chat.html">AI Chat</a></li>
+            <li><button class="login-btn" onclick="window.location.href='login.html'">Login</button></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="schedule-container">
+        <section class="schedule-header">
+            <h1>Schedule Your Study Sessions</h1>
+            <p>Book and manage your tutoring sessions with ease</p>
+        </section>
+
+        <section class="schedule-grid">
+            <div class="calendar-section">
+                <div class="calendar-header">
+                    <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                    <h2 id="currentMonth">September 2024</h2>
+                    <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="calendar-days">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="schedule-details">
+                <div class="upcoming-sessions">
+                    <h3>Upcoming Sessions</h3>
+                    <div class="sessions-list" id="sessionsList">
+                        <!-- Sessions will be populated by JavaScript -->
+                    </div>
+                </div>
+                <button class="new-session-btn" onclick="openScheduleModal()">
+                    <i class="fas fa-plus"></i> Schedule New Session
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Schedule Modal -->
+    <div id="scheduleModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeScheduleModal()">&times;</span>
+            <h2>Schedule New Session</h2>
+            <form id="scheduleForm">
+                <div class="form-group">
+                    <label for="sessionType">Session Type</label>
+                    <select id="sessionType" required>
+                        <option value="">Select Type</option>
+                        <option value="one-on-one">One-on-One Tutoring</option>
+                        <option value="group">Group Study</option>
+                        <option value="workshop">Workshop</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <select id="subject" required>
+                        <option value="">Select Subject</option>
+                        <option value="mathematics">Mathematics</option>
+                        <option value="physics">Physics</option>
+                        <option value="chemistry">Chemistry</option>
+                        <option value="biology">Biology</option>
+                        <option value="computer-science">Computer Science</option>
+                        <option value="literature">Literature</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sessionDate">Date</label>
+                    <input type="date" id="sessionDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="sessionTime">Time</label>
+                    <input type="time" id="sessionTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="duration">Duration (minutes)</label>
+                    <select id="duration" required>
+                        <option value="30">30 minutes</option>
+                        <option value="60">1 hour</option>
+                        <option value="90">1.5 hours</option>
+                        <option value="120">2 hours</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Session Notes</label>
+                    <textarea id="notes" rows="3" placeholder="Add any specific topics or requirements"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Schedule Session</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="schedule.js"></script>
+    <script src="user-profile.js"></script>
+</body>
+</html> 

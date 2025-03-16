@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Buddy - Become a Tutor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="become-tutor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Study Buddy</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="peer-matching.html">Find Tutor</a></li>
+            <li><a href="become-tutor.html" class="active">Become a Tutor</a></li>
+            <li><a href="study-materials.html">Resources</a></li>
+            <li><a href="chat.html">AI Chat</a></li>
+            <li><button class="login-btn" onclick="window.location.href='login.html'">Login</button></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="tutor-dashboard">
+        <!-- Registration/Profile Section -->
+        <section class="profile-section" id="profileSection">
+            <h2>Tutor Profile</h2>
+            <form id="tutorProfileForm" class="profile-form">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img src="default-avatar.png" alt="Profile Picture" id="profileAvatar">
+                        <button type="button" class="change-avatar-btn">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <input type="file" id="avatarUpload" accept="image/*" hidden>
+                    </div>
+                    <div class="profile-status">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="availabilityToggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span>Available for Sessions</span>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="education">Education Level</label>
+                        <select id="education" required>
+                            <option value="">Select Education Level</option>
+                            <option value="bachelors">Bachelor's Degree</option>
+                            <option value="masters">Master's Degree</option>
+                            <option value="phd">Ph.D.</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="subjects">Subjects</label>
+                        <select id="subjects" multiple required>
+                            <option value="mathematics">Mathematics</option>
+                            <option value="physics">Physics</option>
+                            <option value="chemistry">Chemistry</option>
+                            <option value="biology">Biology</option>
+                            <option value="computer-science">Computer Science</option>
+                            <option value="literature">Literature</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="experience">Years of Experience</label>
+                        <input type="number" id="experience" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rate">Hourly Rate ($)</label>
+                        <input type="number" id="rate" min="0" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="bio">Bio</label>
+                        <textarea id="bio" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="certificates">Certificates & Qualifications</label>
+                        <div class="certificate-upload">
+                            <button type="button" class="upload-btn">
+                                <i class="fas fa-upload"></i> Upload Certificate
+                            </button>
+                            <input type="file" id="certificates" accept=".pdf,.jpg,.png" multiple hidden>
+                        </div>
+                        <div id="certificatesList" class="certificates-list"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="save-profile-btn">Save Profile</button>
+            </form>
+        </section>
+
+        <!-- Schedule Management Section -->
+        <section class="schedule-section" id="scheduleSection">
+            <h2>Schedule Management</h2>
+            <div class="schedule-container">
+                <div class="calendar-view">
+                    <div class="calendar-header">
+                        <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                        <h3 id="currentMonth">September 2024</h3>
+                        <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar will be dynamically populated -->
+                    </div>
+                </div>
+                <div class="schedule-details">
+                    <h3>Upcoming Sessions</h3>
+                    <div class="sessions-list" id="sessionsList">
+                        <!-- Sessions will be dynamically populated -->
+                    </div>
+                    <button class="add-availability-btn" onclick="openAvailabilityModal()">
+                        <i class="fas fa-plus"></i> Add Availability
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section class="analytics-section" id="analyticsSection">
+            <h2>Performance Analytics</h2>
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <h3>Total Sessions</h3>
+                    <div class="analytics-value">42</div>
+                    <div class="analytics-trend positive">
+                        <i class="fas fa-arrow-up"></i> 15% from last month
+                    </div>
+                </div>
+                <div class="analytics-card">
+                    <h3>Average Rating</h3>
+                    <div class="analytics-value">4.8</div>
+                    <div class="rating-stars">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div class="analytics-card">
+                    <h3>Total Earnings</h3>
+                    <div class="analytics-value">$1,250</div>
+                    <div class="analytics-trend positive">
+                        <i class="fas fa-arrow-up"></i> 20% from last month
+                    </div>
+                </div>
+                <div class="analytics-card">
+                    <h3>Student Satisfaction</h3>
+                    <div class="analytics-value">96%</div>
+                    <div class="analytics-trend positive">
+                        <i class="fas fa-arrow-up"></i> 5% from last month
+                    </div>
+                </div>
+            </div>
+            <div class="analytics-charts">
+                <div class="chart-container">
+                    <canvas id="sessionsChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="earningsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reviews Section -->
+        <section class="reviews-section" id="reviewsSection">
+            <h2>Student Reviews</h2>
+            <div class="reviews-container">
+                <div class="reviews-summary">
+                    <div class="overall-rating">
+                        <h3>Overall Rating</h3>
+                        <div class="rating-large">4.8</div>
+                        <div class="rating-stars">⭐⭐⭐⭐⭐</div>
+                        <div class="total-reviews">Based on 125 reviews</div>
+                    </div>
+                    <div class="rating-breakdown">
+                        <div class="rating-bar">
+                            <span>5 stars</span>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 80%"></div>
+                            </div>
+                            <span>80%</span>
+                        </div>
+                        <!-- Add more rating bars -->
+                    </div>
+                </div>
+                <div class="reviews-list" id="reviewsList">
+                    <!-- Reviews will be dynamically populated -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Add Availability Modal -->
+    <div id="availabilityModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Set Availability</h2>
+            <form id="availabilityForm">
+                <div class="form-group">
+                    <label for="availabilityDate">Date</label>
+                    <input type="date" id="availabilityDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Time Slots</label>
+                    <div class="time-slots">
+                        <div class="time-slot">
+                            <input type="time" class="start-time" required>
+                            <span>to</span>
+                            <input type="time" class="end-time" required>
+                            <button type="button" class="remove-slot"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-slot-btn">
+                        <i class="fas fa-plus"></i> Add Time Slot
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label for="repeatOption">Repeat</label>
+                    <select id="repeatOption">
+                        <option value="none">Do not repeat</option>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="biweekly">Bi-weekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                </div>
+                <button type="submit" class="save-availability-btn">Save Availability</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="user-profile.js"></script>
+    <script src="become-tutor.js"></script>
+</body>
+</html> 

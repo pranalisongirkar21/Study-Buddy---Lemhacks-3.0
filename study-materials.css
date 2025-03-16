@@ -1,0 +1,210 @@
+/* Study Materials Page Styles */
+.materials-container {
+    padding: 120px 5% 5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.subject-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.subject-header h1 {
+    font-size: 2.8rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.subject-header p {
+    font-size: 1.2rem;
+    color: var(--dark-gray);
+}
+
+.materials-grid {
+    display: grid;
+    gap: 3rem;
+}
+
+.material-section {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.material-section h2 {
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--light-gray);
+}
+
+.material-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.material-card {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.material-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.material-icon {
+    background: var(--light-gray);
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.material-icon i {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+.material-info {
+    flex-grow: 1;
+}
+
+.material-info h3 {
+    font-size: 1.3rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.material-info p {
+    color: var(--dark-gray);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.download-btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background: var(--primary-color);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Loading Animation */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--light-gray);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .materials-container {
+        padding: 100px 1rem 3rem;
+    }
+
+    .subject-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .material-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .material-card {
+        padding: 1.5rem;
+    }
+}
+
+/* PDF Preview Modal */
+.pdf-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.pdf-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+    color: var(--error-color);
+} 

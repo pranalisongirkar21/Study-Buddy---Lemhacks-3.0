@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Study Buddy - Connect with peers, find tutors, and get AI assistance for your studies">
+    <title>Study Buddy - Your Intelligent Learning Companion</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Study Buddy</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#find-tutor">Find Tutor</a></li>
+            <li><a href="#become-tutor">Become a Tutor</a></li>
+            <li><a href="#resources">Resources</a></li>
+            <li><a href="#schedule">Schedule</a></li>
+            <li><a href="chat.html" class="chat-nav-btn" aria-label="Open AI Chatbot">
+                <i class="fas fa-robot" aria-hidden="true"></i>
+                <span>AI Chatbot</span>
+            </a></li>
+        </ul>
+        <button class="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="floating-shapes" aria-hidden="true">
+                <div class="shape"></div>
+                <div class="shape"></div>
+                <div class="shape"></div>
+                <div class="shape"></div>
+            </div>
+            <div class="hero-content">
+                <h1>Connect, Learn, and Grow Together</h1>
+                <p>Find the perfect study buddy or share your knowledge with peers</p>
+                <div class="cta-buttons">
+                    <button class="primary-btn">Find a Tutor</button>
+                    <button class="secondary-btn">Become a Tutor</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="features" id="features">
+            <h2>Why Choose Study Buddy?</h2>
+            <div class="feature-cards">
+                <article class="feature-card">
+                    <i class="fas fa-users" aria-hidden="true"></i>
+                    <h3>Peer Matching</h3>
+                    <p>Find the perfect study partner based on subject and expertise</p>
+                </article>
+                <article class="feature-card">
+                    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                    <h3>Easy Scheduling</h3>
+                    <p>Book sessions that fit your schedule</p>
+                </article>
+                <article class="feature-card">
+                    <i class="fas fa-share-alt" aria-hidden="true"></i>
+                    <h3>Resource Sharing</h3>
+                    <p>Access and share study materials with peers</p>
+                </article>
+                <article class="feature-card ai-feature" onclick="window.location.href='chat.html'" role="button" tabindex="0">
+                    <i class="fas fa-robot" aria-hidden="true"></i>
+                    <h3>AI Study Assistant</h3>
+                    <p>Get instant help from our intelligent AI tutor</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="subjects" id="subjects">
+            <h2>Popular Subjects</h2>
+            <div class="subject-grid">
+                <button class="subject-card" onclick="goToChat('Mathematics')" aria-label="Chat about Mathematics">
+                    <i class="fas fa-square-root-alt" aria-hidden="true"></i>
+                    Mathematics
+                </button>
+                <button class="subject-card" onclick="goToChat('Physics')" aria-label="Chat about Physics">
+                    <i class="fas fa-atom" aria-hidden="true"></i>
+                    Physics
+                </button>
+                <button class="subject-card" onclick="goToChat('Chemistry')" aria-label="Chat about Chemistry">
+                    <i class="fas fa-flask" aria-hidden="true"></i>
+                    Chemistry
+                </button>
+                <button class="subject-card" onclick="goToChat('Biology')" aria-label="Chat about Biology">
+                    <i class="fas fa-dna" aria-hidden="true"></i>
+                    Biology
+                </button>
+                <button class="subject-card" onclick="goToChat('Computer Science')" aria-label="Chat about Computer Science">
+                    <i class="fas fa-laptop-code" aria-hidden="true"></i>
+                    Computer Science
+                </button>
+                <button class="subject-card" onclick="goToChat('Literature')" aria-label="Chat about Literature">
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                    Literature
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-content">
+            <i class="fas fa-times close-auth" onclick="closeAuthModal()"></i>
+            <div class="auth-header">
+                <h2>Welcome to Study Buddy</h2>
+                <p>Login or create an account to continue</p>
+            </div>
+            <div class="auth-tabs">
+                <div class="auth-tab active" onclick="switchTab('login')">Login</div>
+                <div class="auth-tab" onclick="switchTab('signup')">Sign Up</div>
+            </div>
+            <form class="auth-form active" id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="auth-btn">Login</button>
+            </form>
+            <form class="auth-form" id="signupForm" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <button type="submit" class="auth-btn">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Study Buddy</h3>
+                <p>Connecting students for better learning</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#terms">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Study Buddy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        // Check if already logged in on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn) {
+                window.location.href = 'home.html';
+            }
+        });
+
+        // Function to navigate to chat with selected subject
+        function goToChat(subject) {
+            if (checkAuth()) {
+                localStorage.setItem('selectedSubject', subject);
+                window.location.href = 'chat.html';
+            }
+        }
+
+        // Check if user is logged in
+        function checkAuth() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (!isLoggedIn) {
+                showAuthModal();
+                return false;
+            }
+            return true;
+        }
+
+        // Auth Modal Functions
+        function showAuthModal() {
+            document.getElementById('authModal').classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            
+            if (tab === 'login') {
+                document.querySelector('.auth-tab:first-child').classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.querySelector('.auth-tab:last-child').classList.add('active');
+                document.getElementById('signupForm').classList.add('active');
+            }
+        }
+
+        // Handle Login
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const loginBtn = event.target.querySelector('button');
+            
+            // Show loading state
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+            loginBtn.disabled = true;
+            
+            try {
+                // Store user data
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userName', email.split('@')[0]);
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('lastLogin', new Date().toISOString());
+                
+                // Redirect to dashboard with a small delay to show loading state
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 500);
+            } catch (error) {
+                console.error('Login failed:', error);
+                alert('Login failed. Please try again.');
+                loginBtn.innerHTML = 'Login';
+                loginBtn.disabled = false;
+            }
+        }
+
+        // Handle Signup
+        function handleSignup(event) {
+            event.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const signupBtn = event.target.querySelector('button');
+            
+            // Show loading state
+            signupBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+            signupBtn.disabled = true;
+            
+            try {
+                // Store user data
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userName', name);
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('registrationDate', new Date().toISOString());
+                localStorage.setItem('lastLogin', new Date().toISOString());
+                
+                // Redirect to dashboard with a small delay to show loading state
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 500);
+            } catch (error) {
+                console.error('Signup failed:', error);
+                alert('Signup failed. Please try again.');
+                signupBtn.innerHTML = 'Sign Up';
+                signupBtn.disabled = false;
+            }
+        }
+
+        // Add click handlers to all feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            const originalClick = card.onclick;
+            card.onclick = function(e) {
+                if (!checkAuth()) {
+                    e.preventDefault();
+                    return;
+                }
+                if (originalClick) originalClick.call(this, e);
+            };
+        });
+
+        // Update login button to show auth modal
+        document.querySelector('.login-btn').onclick = showAuthModal;
+
+        // Add click handler to primary and secondary buttons
+        document.querySelectorAll('.primary-btn, .secondary-btn').forEach(btn => {
+            btn.onclick = function() {
+                if (checkAuth()) {
+                    window.location.href = 'dashboard.html';
+                }
+            };
+        });
+
+        // Handle chat navigation button
+        document.querySelector('.chat-nav-btn').onclick = function(e) {
+            e.preventDefault();
+            if (checkAuth()) {
+                window.location.href = 'chat.html';
+            }
+        };
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Close auth modal when clicking outside
+        document.addEventListener('click', (e) => {
+            const authModal = document.getElementById('authModal');
+            const authContent = document.querySelector('.auth-content');
+            if (e.target === authModal && !authContent.contains(e.target)) {
+                closeAuthModal();
+            }
+        });
+
+        // Handle escape key to close modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAuthModal();
+            }
+        });
+    </script>
+    <script src="user-profile.js"></script>
+</body>
+</html> 

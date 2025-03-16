@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Buddy - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Add Google Sign-In API -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body class="login-page">
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Study Buddy</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="login-container">
+        <div class="forms-container">
+            <!-- Left Side - Form -->
+            <div class="form-section">
+                <h2 class="form-title">Sign Up</h2>
+                <form class="signup-form" id="signupForm">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <i class="fas fa-user"></i>
+                            <input type="text" placeholder="Full Name" required>
+                        </div>
+                        <div class="input-field">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" placeholder="Email" required>
+                        </div>
+                        <div class="input-field">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Password" required>
+                        </div>
+                        <div class="input-field">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Confirm Password" required>
+                        </div>
+                    </div>
+
+                    <div class="user-type-selection">
+                        <label class="user-type-option">
+                            <input type="radio" name="userType" value="student" checked>
+                            <span class="radio-custom"></span>
+                            <span class="label-text">I'm a Student</span>
+                        </label>
+                        <label class="user-type-option">
+                            <input type="radio" name="userType" value="tutor">
+                            <span class="radio-custom"></span>
+                            <span class="label-text">I'm a Tutor</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Sign up</button>
+
+                    <div class="social-login">
+                        <p>Or Sign up with social platforms</p>
+                        <div class="social-icons">
+                            <!-- Google Sign-In Button -->
+                            <div id="g_id_onload"
+                                 data-client_id="285583610101-ra8hsqm0dges5i5345l01sp3tvm4129s.apps.googleusercontent.com"
+                                 data-context="signup"
+                                 data-callback="handleGoogleSignUp">
+                            </div>
+                            <div class="g_id_signin google-btn"
+                                 data-type="standard"
+                                 data-size="large"
+                                 data-theme="outline"
+                                 data-text="signup_with"
+                                 data-shape="rectangular"
+                                 data-logo_alignment="center">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Right Side - Info -->
+            <div class="info-section">
+                <div class="info-content">
+                    <h2>Already have an account?</h2>
+                    <p>Sign in to continue your learning journey with Study Buddy.</p>
+                    <div class="illustration">
+                        <img src="https://raw.githubusercontent.com/sefyudem/Sliding-Sign-In-Sign-Up-Form/955c6482aeeb2f0e77c1f3c66354da3bc4d7a72d/img/register.svg" alt="Learning illustration">
+                    </div>
+                    <a href="login.html">
+                    <button class="switch-btn" id="switchToSignIn">Sign in</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div class="toast-container"></div>
+
+    <script src="signup.js"></script>
+    <script src="user-profile.js"></script>
+</body>
+</html> 

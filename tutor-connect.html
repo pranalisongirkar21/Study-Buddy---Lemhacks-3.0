@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Buddy - Connect with Tutor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="tutor-connect.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Add Zoom Web SDK -->
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/2.9.5/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/2.9.5/css/react-select.css" />
+    <script src="https://source.zoom.us/2.9.5/lib/vendor/react.min.js"></script>
+    <script src="https://source.zoom.us/2.9.5/lib/vendor/react-dom.min.js"></script>
+    <script src="https://source.zoom.us/2.9.5/lib/vendor/redux.min.js"></script>
+    <script src="https://source.zoom.us/2.9.5/lib/vendor/redux-thunk.min.js"></script>
+    <script src="https://source.zoom.us/2.9.5/lib/vendor/lodash.min.js"></script>
+    <script src="https://source.zoom.us/2.9.5/zoom-meeting-embedded-2.9.5.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Study Buddy</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#peer-matching">Find Tutor</a></li>
+            <li><a href="#resources">Resources</a></li>
+            <li><a href="become-tutor.html" class="become-tutor-btn">Become a Tutor</a></li>
+            <li><button class="login-btn">Login</button></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="tutor-connect-container">
+        <!-- Tutor Info Section -->
+        <section class="tutor-info">
+            <div class="tutor-profile">
+                <img src="" alt="Tutor Profile" id="tutorAvatar">
+                <h2 id="tutorName"></h2>
+                <div class="tutor-rating" id="tutorRating"></div>
+                <p class="tutor-subjects" id="tutorSubjects"></p>
+                <div class="tutor-status">
+                    <span class="status-indicator"></span>
+                    <span class="status-text">Available Now</span>
+                </div>
+            </div>
+            <div class="session-actions">
+                <button class="start-zoom-btn" onclick="startZoomMeeting()">
+                    <i class="fas fa-video"></i> Start Zoom Session
+                </button>
+                <div class="meeting-info" style="display: none;">
+                    <p>Meeting ID: <span id="meetingId">Loading...</span></p>
+                    <p>Password: <span id="meetingPassword">Loading...</span></p>
+                    <button class="copy-link-btn" onclick="copyMeetingLink()">
+                        <i class="fas fa-copy"></i> Copy Meeting Link
+                    </button>
+                </div>
+                <button class="schedule-btn" onclick="openScheduleModal()">
+                    <i class="fas fa-calendar-alt"></i> Schedule Session
+                </button>
+            </div>
+            <!-- Interactive Session Controls -->
+            <div class="session-controls" style="display: none;">
+                <div class="control-buttons">
+                    <button onclick="toggleAudio()" class="control-btn" id="audioBtn" title="Toggle Audio">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button onclick="toggleVideo()" class="control-btn" id="videoBtn" title="Toggle Video">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    <button onclick="toggleScreenShare()" class="control-btn" id="shareBtn" title="Share Screen">
+                        <i class="fas fa-desktop"></i>
+                    </button>
+                    <button onclick="toggleRecording()" class="control-btn" id="recordBtn" title="Record Meeting">
+                        <i class="fas fa-record-vinyl"></i>
+                    </button>
+                    <button onclick="toggleParticipants()" class="control-btn" id="participantsBtn" title="Participants">
+                        <i class="fas fa-users"></i>
+                        <span class="participant-count">1</span>
+                    </button>
+                    <button onclick="toggleSecurity()" class="control-btn" id="securityBtn" title="Security Options">
+                        <i class="fas fa-shield-alt"></i>
+                    </button>
+                    <button onclick="endMeeting()" class="control-btn end-call" title="End Meeting">
+                        <i class="fas fa-phone-slash"></i>
+                    </button>
+                </div>
+                <div class="session-info">
+                    <div class="session-timer">
+                        <i class="fas fa-clock"></i>
+                        <span id="sessionTime">00:00:00</span>
+                    </div>
+                    <div class="meeting-id">
+                        Meeting ID: <span id="meetingIdDisplay">Loading...</span>
+                        <button onclick="copyMeetingInfo()" class="copy-btn" title="Copy Meeting Info">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Participants Panel -->
+            <div id="participantsPanel" class="side-panel" style="display: none;">
+                <div class="panel-header">
+                    <h3>Participants</h3>
+                    <button onclick="toggleParticipants()" class="close-panel">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="participants-list" id="participantsList">
+                    <!-- Participants will be dynamically added here -->
+                </div>
+                <div class="panel-actions">
+                    <button onclick="muteAllParticipants()" class="action-btn">
+                        <i class="fas fa-microphone-slash"></i> Mute All
+                    </button>
+                    <button onclick="inviteParticipant()" class="action-btn">
+                        <i class="fas fa-user-plus"></i> Invite
+                    </button>
+                </div>
+            </div>
+
+            <!-- Security Options Panel -->
+            <div id="securityPanel" class="side-panel" style="display: none;">
+                <div class="panel-header">
+                    <h3>Security Options</h3>
+                    <button onclick="toggleSecurity()" class="close-panel">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="security-options">
+                    <div class="option-group">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="lockMeeting" onchange="toggleLockMeeting()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span>Lock Meeting</span>
+                    </div>
+                    <div class="option-group">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="enableWaitingRoom" onchange="toggleWaitingRoom()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span>Enable Waiting Room</span>
+                    </div>
+                    <div class="option-group">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="allowChat" onchange="toggleAllowChat()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span>Allow Chat</span>
+                    </div>
+                    <div class="option-group">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="allowScreenShare" onchange="toggleAllowScreenShare()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span>Allow Screen Share</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Area -->
+        <div class="content-area">
+            <!-- Zoom Meeting Container -->
+            <section id="zoomContainer" class="zoom-section" style="display: none;">
+                <div id="meetingSDKElement" class="meeting-window"></div>
+            </section>
+
+            <!-- Chat Section -->
+            <section class="chat-section" id="chatSection">
+                <div class="chat-header">
+                    <h3>Chat</h3>
+                    <div class="chat-controls">
+                        <button class="emoji-btn" onclick="toggleEmojiPicker()">
+                            <i class="far fa-smile"></i>
+                        </button>
+                        <div class="chat-status">Online</div>
+                    </div>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be dynamically added here -->
+                </div>
+                <div class="emoji-picker" id="emojiPicker" style="display: none;">
+                    <!-- Emojis will be dynamically added here -->
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Type your message...">
+                    <button class="attach-btn" onclick="openFileUpload()">
+                        <i class="fas fa-paperclip"></i>
+                    </button>
+                    <button onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Resources Section with Preview -->
+            <section class="resources-section">
+                <div class="resources-header">
+                    <h3>Shared Resources</h3>
+                    <div class="resource-actions">
+                        <button class="upload-btn" onclick="openFileUpload()">
+                            <i class="fas fa-upload"></i> Upload
+                        </button>
+                        <button class="filter-btn" onclick="toggleResourceFilter()">
+                            <i class="fas fa-filter"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="resource-filters" style="display: none;">
+                    <select id="fileTypeFilter" onchange="filterResources()">
+                        <option value="all">All Files</option>
+                        <option value="pdf">PDF Files</option>
+                        <option value="doc">Word Documents</option>
+                        <option value="ppt">Presentations</option>
+                    </select>
+                    <input type="text" id="searchResources" placeholder="Search resources..." oninput="filterResources()">
+                </div>
+                <div class="resources-list" id="resourcesList">
+                    <!-- Resources will be dynamically added here -->
+                </div>
+                <div id="resourcePreview" class="resource-preview" style="display: none;">
+                    <div class="preview-header">
+                        <h4>File Preview</h4>
+                        <button onclick="closePreview()"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="preview-content"></div>
+                </div>
+                <input type="file" id="fileUpload" accept=".pdf,.doc,.docx,.ppt,.pptx" style="display: none">
+            </section>
+        </div>
+
+        <!-- Schedule Modal -->
+        <div id="scheduleModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeScheduleModal()">&times;</span>
+                <h2>Schedule a Session</h2>
+                <form id="scheduleForm">
+                    <div class="form-group">
+                        <label for="sessionDate">Date</label>
+                        <input type="date" id="sessionDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sessionTime">Time</label>
+                        <input type="time" id="sessionTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sessionDuration">Duration (minutes)</label>
+                        <select id="sessionDuration" required>
+                            <option value="30">30 minutes</option>
+                            <option value="60">1 hour</option>
+                            <option value="90">1.5 hours</option>
+                            <option value="120">2 hours</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sessionTopic">Topic</label>
+                        <input type="text" id="sessionTopic" placeholder="What would you like to discuss?" required>
+                    </div>
+                    <button type="submit" class="schedule-submit-btn">Schedule Session</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- File Preview Modal -->
+        <div id="previewModal" class="modal">
+            <div class="modal-content preview-modal">
+                <span class="close" onclick="closePreviewModal()">&times;</span>
+                <h2>File Preview</h2>
+                <div id="previewContent"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="tutor-connect.js"></script>
+    <script src="user-profile.js"></script>
+</body>
+</html> 

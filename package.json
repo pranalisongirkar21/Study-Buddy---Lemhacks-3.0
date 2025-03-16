@@ -1,0 +1,17 @@
+{
+  "name": "study-buddy-websocket-server",
+  "version": "1.0.0",
+  "description": "WebSocket server for Study Buddy virtual study rooms",
+  "main": "whiteboard-server.js",
+  "scripts": {
+    "start": "node whiteboard-server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "openai": "^4.87.3",
+    "study-buddy-websocket-server": "file:",
+    "ws": "^8.2.3"
+  }
+}
